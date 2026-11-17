@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "PetFlow",
+  "version": "1.0.0",
+  "identifier": "com.ypengly.petflow",
+  "build": { "beforeDevCommand": "npm run dev", "devUrl": "http://localhost:1420", "beforeBuildCommand": "npm run build", "frontendDist": "../dist" },
+  "app": {
+    "windows": [{ "label": "main", "title": "PetFlow – A Little Friend While You Work", "width": 1100, "height": 780, "minWidth": 420, "minHeight": 560 }],
+    "security": { "csp": null }
+  },
+  "bundle": { "active": true, "targets": ["nsis", "msi"], "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.ico"] }
+}

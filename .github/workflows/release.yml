@@ -1,0 +1,21 @@
+name: Build Windows installer
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: dtolnay/rust-toolchain@stable
+      - run: npm install
+      - run: npm test
+      - run: npx tauri icon app-icon.png
+      - uses: tauri-apps/tauri-action@v0
+        env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
+        with: { tagName: "v__VERSION__", releaseName: "PetFlow v__VERSION__", releaseDraft: true }
+      - uses: actions/upload-artifact@v4
+        with: { name: petflow-windows, path: src-tauri/target/release/bundle/** }
